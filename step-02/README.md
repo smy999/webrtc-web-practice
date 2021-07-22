@@ -35,7 +35,7 @@ __'finding candidates(후보 찾기)'__ 라는 표현은 __ICE framework__ 를 �
 
 <br>
 
-1-1. onicecandidate(addEventListener('icecandidate')) 핸들러를 사용하여 RTCPeerConnection 객체를 생성한다.:
+1-1. onicecandidate(addEventListener('icecandidate')) 핸들러를 사용하여 RTCPeerConnection 객체를 생성한다. :
 ```
 let localPeerConnection;
 
@@ -46,13 +46,13 @@ localPeerConnection.addEventListener(
 ```
 
   * 주의 사항
-    * RTCPeerConnection에 대한 서버 설정는 이 부분에서 구현하지 않는다. 여기에서 STUN 및 TURN 서버를 지정할 수 있습니다.
+    * RTCPeerConnection에 대한 서버 설정는 이 부분에서 구현하지 않는다. 여기에서 STUN 및 TURN 서버를 지정할 수 있다.
     * WebRTC는 P2P로 작동하도록 설계되어 사용자가 가능한 가장 직접적인 경로로 연결할 수 있다. 그러나 WebRTC는 실제 네트워킹에 대처하도록 구축되었다.  Client 애플리케이션은 NAT Gateway 및 방화벽을 통과해야 하고 P2P 네트워킹은 직접 연결이 실패할 경우 fallback이 필요하다.
     * 이 프로세스의 일부로 WebRTC API는 STUN 서버를 사용하여 컴퓨터의 IP 주소를 가져오고 TURN 서버는 피어 투 피어 통신이 실패한 경우 릴레이 서버로 작동한다.
 
 <br>
 
-1-2. getUserMedia()를 호출하고 전달된 stream을 추가한다.:
+1-2. getUserMedia()를 호출하고 전달된 stream을 추가한다. :
 ```
 // getUserMedia()로 stream을 가져온다.
 navigator.mediaDevices.getUserMedia(mediaStreamConstraints). // getUserMedia()를 호출하면 브라우저는 기기 엑세스 권한을 요쳥한다.
@@ -83,7 +83,7 @@ trace('Added local stream to localPeerConnection.');
 
 <br>
 
-1-5. 후보 메시지를 받은 peer는 addIceCandidate()를 호출하여 원격 peer 설명에 후보를 추가한다.:
+1-5. 후보 메시지를 받은 peer는 addIceCandidate()를 호출하여 원격 peer 설명에 후보를 추가한다. :
 ```
 function handleConnection(event) {
   const peerConnection = event.target;
@@ -135,7 +135,7 @@ localPeerConnection.createOffer(offerOptions)
 
 <br>
 
-2-5. P1이 P2의 세션 설명을 받으면 setRemoteDescription()을 사용하여 이를 원격 설명으로 설정합니다.
+2-5. P1이 P2의 세션 설명을 받으면 setRemoteDescription()을 사용하여 이를 원격 설명으로 설정한다. :
 ```
 // Logs offer creation and sets peer connection session descriptions.
 function createdOffer(description) {
@@ -223,7 +223,12 @@ adaptor.js는
 <br>
 
 ## SDP
-&nbsp;&nbsp;
+&nbsp;&nbsp;세션 설명 프로토콜(SDP: Session Description Protocol)를 기술하는 형식으로, VoIP(Voice over IP )및 화상회의와 같은 스트리밍 미디어 응용 프로그램을 지원하는 데 주로 사용된다. SDP는 미디어 스트림 자체를 전달하지 않지만 네트워크 메트릭, 미디어 유형 및 기타 관련 속성 협상을 위해 엔드포인트 간에 사용된다. 속성 및 매개변수 집합을 세션 프로필이라고 한다.
+```
+<문자>=<값><CR><LF>
+```
+위와 같이 세션 설명 프로토콜은 세션을 텍스트 기반 형식의 필드 그룹으로 설명하며, 한 줄에 하나의 필드를 갖는다.
+
 
 
 
@@ -235,3 +240,4 @@ adaptor.js는
 * https://codelabs.developers.google.com/codelabs/webrtc-web/#4
 * https://wormwlrm.github.io/2021/01/24/Introducing-WebRTC.html
 * ICE: https://en.wikipedia.org/wiki/Interactive_Connectivity_Establishment
+* SDP: https://en.wikipedia.org/wiki/Session_Description_Protocol
