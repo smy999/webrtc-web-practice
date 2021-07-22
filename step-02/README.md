@@ -183,23 +183,23 @@ function createdAnswer(description) {
 ## Method Call Process
 
 ### When User click "Start" button
-> startAction 
-> getUserMedia(return: media stream) 
-> gotLocalMediaStream(do: setting localVideo and localStream)
+* startAction 
+* getUserMedia(return: media stream) 
+* gotLocalMediaStream(do: setting localVideo and localStream)
 
 ### When User click "Call" button
-> callAction(get videoTrack in localStream, create local/remote peer connection using addEventListener())
-> local - handleConnection(): 새로운 candidate를 만들 때(new peer condidate를 생성하고 getOtherPeer()를 통해 상대 peer를 알아낸 후, addIceCandidate()를 통해 상대 peer에게 새로 만든 candidate를 추가한다.)
-> local - handleConnection(): Changecandidate 상태가 변경되었을 때
-> remote - 위 두 과정을 반복
-> remote - gotRemoteMediaStream()을 통해서 media stream 생성
-> local - addStream(): local connection에 local stream을 추가한다.
-> local - createdOffer(): createOffer()를 사용해서 옵션을 가져온 후, createdOffer()를 호출한다.
-> createdOffer(): session description을 받아와서 local & remote connection에 추가한 후 createAnswer()를 호출한다.
-> createdAnswer(): 서로의 description을 추가한다.
+* callAction(get videoTrack in localStream, create local/remote peer connection using addEventListener())
+* local - handleConnection(): 새로운 candidate를 만들 때(new peer condidate를 생성하고 getOtherPeer()를 통해 상대 peer를 알아낸 후, addIceCandidate()를 통해 상대 peer에게 새로 만든 candidate를 추가한다.)
+* local - handleConnection(): Changecandidate 상태가 변경되었을 때
+* remote - 위 두 과정을 반복
+* remote - gotRemoteMediaStream()을 통해서 media stream 생성
+* local - addStream(): local connection에 local stream을 추가한다.
+* local - createdOffer(): createOffer()를 사용해서 옵션을 가져온 후, createdOffer()를 호출한다.
+* createdOffer(): session description을 받아와서 local & remote connection에 추가한 후 createAnswer()를 호출한다.
+* createdAnswer(): 서로의 description을 추가한다.
 
 ### When User click "Hang Up" button
-> hangupAction(local & renote onnection을 끊어주고 null로 변경한 후 버튼 변경해주기)
+* hangupAction(local & renote onnection을 끊어주고 null로 변경한 후 버튼 변경해주기)
 
 
 <br>
@@ -225,7 +225,10 @@ adaptor.js는
 ## SDP
 &nbsp;&nbsp;
 
+
+
 <br>
+
 
 ## Reference
 
