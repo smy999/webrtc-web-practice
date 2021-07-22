@@ -110,7 +110,7 @@ function handleConnection(event) {
 
 ### 2. SDP를 활용한 Metadata 정보 교환
 
-WebRTC peer는 해상도 및 코덱 기능과 같은 로컬 및 원격 오디오 및 비디오 미디어 정보를 찾고 교환해야 한다. 미디어 구성 정보를 교환하는 신호는 SDP라고 하는 세션 설명 프로토콜 형식을 사용하여 제안 및 답변으로 알려진 메타데이터 덩어리이다.
+&nbsp;&nbsp;WebRTC peer는 해상도 및 코덱 기능과 같은 로컬 및 원격 오디오 및 비디오 미디어 정보를 찾고 교환해야 한다. 미디어 구성 정보를 교환하는 신호는 SDP라고 하는 세션 설명 프로토콜 형식을 사용하여 제안 및 답변으로 알려진 메타데이터 덩어리이다.
 
 <br>
 
@@ -177,6 +177,30 @@ function createdAnswer(description) {
 }
 ```
 
+<br>
+
+
+## Method Call Process
+
+### When User click "Start" button
+> startAction 
+> getUserMedia(return: media stream) 
+> gotLocalMediaStream(do: setting localVideo and localStream)
+
+### When User click "Call" button
+> callAction(get videoTrack in localStream, create local/remote peer connection using addEventListener())
+> local - handleConnection(): 새로운 candidate를 만들 때(new peer condidate를 생성하고 getOtherPeer()를 통해 상대 peer를 알아낸 후, addIceCandidate()를 통해 상대 peer에게 새로 만든 candidate를 추가한다.)
+> local - handleConnection(): Changecandidate 상태가 변경되었을 때
+> remote - 위 두 과정을 반복
+> remote - gotRemoteMediaStream()을 통해서 media stream 생성
+> local - addStream(): local connection에 local stream을 추가한다.
+> local - createdOffer(): createOffer()를 사용해서 옵션을 가져온 후, createdOffer()를 호출한다.
+> createdOffer(): session description을 받아와서 local & remote connection에 추가한 후 createAnswer()를 호출한다.
+> createdAnswer(): 서로의 description을 추가한다.
+
+### When User click "Hang Up" button
+> hangupAction(local & renote onnection을 끊어주고 null로 변경한 후 버튼 변경해주기)
+
 
 <br>
 
@@ -192,13 +216,14 @@ adaptor.js는
 
 <br>
 
-### ICE
-대화형 연결 설정(ICE: Interactive Connectivity Establishment)은 P2P 네트워킹 에서 두 컴퓨터가 가능한 한 직접 서로 통신할 수 있는 방법을 찾기 위해 컴퓨터 네트워킹에 사용되는 기술이다. 이것은 VoIP(Voice over Internet Protocol), P2P 통신, 비디오 및 인스턴트 메시징 과 같은 대화형 미디어에 가장 일반적으로 사용된다. VoIP, P2P 및 기타 많은 응용 프로그램은 인터넷 프로토콜 패킷 헤더가 아니라 연결 데이터 스트림 내에서 통신하는 Peer의 주소 정보를 필요로 한다. ICE는 통신하는 Peer가 다른 Peer에게 도달할 수 있도록 공용 IP 주소를 발견하고 전달할 수 있는 프레임워크를 제공한다.
+## ICE
+&nbsp;&nbsp;대화형 연결 설정(ICE: Interactive Connectivity Establishment)은 P2P 네트워킹 에서 두 컴퓨터가 가능한 한 직접 서로 통신할 수 있는 방법을 찾기 위해 컴퓨터 네트워킹에 사용되는 기술이다. 이것은 VoIP(Voice over Internet Protocol), P2P 통신, 비디오 및 인스턴트 메시징 과 같은 대화형 미디어에 가장 일반적으로 사용된다. VoIP, P2P 및 기타 많은 응용 프로그램은 인터넷 프로토콜 패킷 헤더가 아니라 연결 데이터 스트림 내에서 통신하는 Peer의 주소 정보를 필요로 한다. ICE는 통신하는 Peer가 다른 Peer에게 도달할 수 있도록 공용 IP 주소를 발견하고 전달할 수 있는 프레임워크를 제공한다.
 
 
 <br>
 
 ## SDP
+&nbsp;&nbsp;
 
 <br>
 
