@@ -2,7 +2,18 @@ body {
   font-family: sans-serif;
 }
 
+/* video screeen size  */
 video {
   max-width: 100%;
-  width: 320px;
+  width: 1000px;
 }
+
+/* video filter */
+/* video {
+  filter: blur(4px) invert(1) opacity(0.5);
+} */
+
+/* SVG filter */
+/* video {
+  filter: hue-rotate(180deg) saturate(100%);
+} */

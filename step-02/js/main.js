@@ -17,12 +17,15 @@ const offerOptions = {
 let startTime = null;
 
 // Define peer connections, streams and video elements.
+// local, remote의 video를 출력할 dom 객체 연결
 const localVideo = document.getElementById('localVideo');
 const remoteVideo = document.getElementById('remoteVideo');
 
+// local & remote video stream
 let localStream;
 let remoteStream;
 
+// local & remote peer connection
 let localPeerConnection;
 let remotePeerConnection;
 
@@ -31,8 +34,8 @@ let remotePeerConnection;
 
 // Sets the MediaStream as the video element src.
 function gotLocalMediaStream(mediaStream) {
-  localVideo.srcObject = mediaStream;
-  localStream = mediaStream;
+  localVideo.srcObject = mediaStream;   // MediaStream에서는 srcObject를 통해서 media element를 사용할 수 있다.
+  localStream = mediaStream;            // 생성된 media stream을 local stream에 저장한다.
   trace('Received local stream.');
   callButton.disabled = false;  // Enable call button.
 }
@@ -80,6 +83,7 @@ remoteVideo.addEventListener('onresize', logResizedVideo);
 // Define RTC peer connection behavior.
 
 // Connects with new peer candidate.
+// 후보 메시지를 받은 peer는 addIceCandidate()를 호출해서 remote peer 설명에 추가한다.
 function handleConnection(event) {
   const peerConnection = event.target;
   const iceCandidate = event.candidate;
@@ -195,8 +199,9 @@ hangupButton.disabled = true;
 // Handles start button action: creates local MediaStream.
 function startAction() {
   startButton.disabled = true;
-  navigator.mediaDevices.getUserMedia(mediaStreamConstraints)
-    .then(gotLocalMediaStream).catch(handleLocalMediaStreamError);
+  // local이 getUserMedia()을 호출하여 stream을 받아 전달한다.
+  navigator.mediaDevices.getUserMedia(mediaStreamConstraints)     // getUserMedia()를 호출하면 브라우저는 기기 엑세스 권한을 요쳥한다.
+    .then(gotLocalMediaStream).catch(handleLocalMediaStreamError);// 권한이 수락되면, MediaStream이 반환된다. 
   trace('Requesting local stream.');
 }
 
@@ -224,6 +229,7 @@ function callAction() {
   localPeerConnection = new RTCPeerConnection(servers);
   trace('Created local peer connection object localPeerConnection.');
 
+  // onicecandidate (addEventListener('icecandidate'))핸들러를 사용하여 RTCPeerConnection 객체를 생성
   localPeerConnection.addEventListener('icecandidate', handleConnection);
   localPeerConnection.addEventListener(
     'iceconnectionstatechange', handleConnectionChange);
@@ -237,6 +243,7 @@ function callAction() {
   remotePeerConnection.addEventListener('addstream', gotRemoteMediaStream);
 
   // Add local stream to connection and create offer to connect.
+  // connection에 stream을 추가한다.
   localPeerConnection.addStream(localStream);
   trace('Added local stream to localPeerConnection.');
 
@@ -246,6 +253,7 @@ function callAction() {
 }
 
 // Handles hangup action: ends up call, closes connections and resets peers.
+// Connection을 끊어주고, 버튼 변경해주기
 function hangupAction() {
   localPeerConnection.close();
   remotePeerConnection.close();
@@ -257,6 +265,7 @@ function hangupAction() {
 }
 
 // Add click event handlers for buttons.
+// 영상 시작, 상대방 부르기(= 상대방 video section에 내 영상 출력), 상대방과 연결 끊기
 startButton.addEventListener('click', startAction);
 callButton.addEventListener('click', callAction);
 hangupButton.addEventListener('click', hangupAction);
@@ -265,12 +274,14 @@ hangupButton.addEventListener('click', hangupAction);
 // Define helper functions.
 
 // Gets the "other" peer connection.
+// 현재 local이면 remote를, remote이면 local Peer Connection을 반환한다. = 상대방 찾기
 function getOtherPeer(peerConnection) {
   return (peerConnection === localPeerConnection) ?
       remotePeerConnection : localPeerConnection;
 }
 
 // Gets the name of a certain peer connection.
+// 해당 Peer가 local인지 remote인지 판단해서 이름 반환
 function getPeerName(peerConnection) {
   return (peerConnection === localPeerConnection) ?
       'localPeerConnection' : 'remotePeerConnection';
