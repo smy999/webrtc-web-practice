@@ -17,6 +17,22 @@
 
 <br>
 
+## Details
+
+* 하나의 비디오 요소는 getUserMedia()의 스트림을 표시하고 다른 하나는 RTCPeerconnection을 통해 스트리밍된 동일한 비디오를 표시한다.
+* 실제 응용 프로그램에서 하나의 비디오 요소는 로컬 스트림(내 영상)을 표시하고 다른 하나는 원격 스트림(서버에서 보내주는 영상)을 표시한다.
+
+<br>
+
+## adaptor.js
+
+WebRTC는 Chrome과 가장 호환성이 좋다. 그 외에 Firefox, Opera 등이 WevRTC 표준을 지원한다. 다른 브라우저도 지원하긴 하지만 호환성이 떨어진다.  말은, WebRTC는 아직 다양한 플래폼에서 표준화가 구현되어있지 않다는 뜻이다. 그렇다면, 이런 Cross Browsing 문제를 어떻게 해결할 수 있을까? adaptor.js 라이브러리를 사용하여 해결할 수 있다. adaptor.js는
+* shim 
+
+
+<br>
+
 ## Reference
 
 * https://codelabs.developers.google.com/codelabs/webrtc-web/#4
+* https://wormwlrm.github.io/2021/01/24/Introducing-WebRTC.html
