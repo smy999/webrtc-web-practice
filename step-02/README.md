@@ -21,14 +21,37 @@
 <br>
 
 ## Peer Call Process
-* 호출의 각 끝에 RTCPeerConnection을 만들고 그 끝에 ```getUserMedia()```에서 __localStream__ 을 추가한다.
-* 네트워크 정보를 가져와서 공유한다. 잠재적인 연결 끝점은 __ICE candidate__ 로 알려저 있다.
-* local과 remote의 description을 받아와 공유한다. __SDP__ 형식으로 작성된 local media에 대한 metadata 정로를 의미한다.
+### 1. 호출의 각 끝에 RTCPeerConnection을 만들고 그 끝에 ```getUserMedia()```에서 local stream을 추가한다.
+```
+let localPeerConnection;
+
+localPeerConnection = new RTCPeerConnection(servers);
+localPeerConnection.addEventListener('icecandidate', handleConnection);
+localPeerConnection.addEventListener(
+    'iceconnectionstatechange', handleConnectionChange);
+```
+onicecandidate(addEventListener('icecandidate')) 핸들러를 사용하여 RTCPeerConnection 객체를 생성한다.
+
+주의 사항
+```
+RTCPeerConnection에 대한 서버 설정는 이 부분에서 구현하지 않는다. 
+여기에서 STUN 및 TURN 서버를 지정할 수 있습니다.
+
+WebRTC는 P2P로 작동하도록 설계되어 사용자가 가능한 가장 직접적인 경로로 연결할 수 있다.
+그러나 WebRTC는 실제 네트워킹에 대처하도록 구축되었다. 
+Client 애플리케이션은 NAT Gateway 및 방화벽을 통과해야 하고 P2P 네트워킹은 직접 연결이 실패할 경우 fallback이 필요하다.
+
+이 프로세스의 일부로 WebRTC API는 STUN 서버를 사용하여 컴퓨터의 IP 주소를 가져오고 TURN 서버는 피어 투 피어 통신이 실패한 경우 릴레이 서버로 작동한다.
+```
 
 <br>
 
-### 1. 네트워크 정보 교환
+### 2. ICE를 활용한 네트워크 정보 교환
+네트워크 정보를 가져와서 공유한다. 잠재적인 연결 끝점은 __ICE candidate__ 로 알려저 있다.
 __'finding candidates(후보 찾기)'__ 라는 표현은 __ICE framework__ 를 사용하여 네트워크 interface와 port를 찾는 과정을 의미한다.
+
+### 3. SDP를 활용한 Metadata 정보 교환
+local과 remote의 description을 받아와 공유한다. __SDP__ 형식으로 작성된 local media에 대한 metadata 정로를 의미한다.
 
 WebRTC 피어는 또한 해상도 및 코덱 기능과 같은 로컬 및 원격 오디오 및 비디오 미디어 정보를 찾고 교환해야 합니다. 미디어 구성 정보를 교환하라는 신호는 SDP라고 하는 세션 설명 프로토콜 형식을 사용하여 제안 및 답변으로 알려진 메타데이터 덩어리를 교환함으로써 진행됩니다.
 
@@ -45,10 +68,16 @@ adaptor.js는
 * Vendor prefix를 신경 쓸 필요 없이 동일한 API를 호출할 수 있다.
 * 이로 인해 코드 컨벤션 유리와 개발 생산성 향상에 도움을 준다.
 
+
+<br>
+
 ## ICE
 대화형 연결 설정 ( ICE )은 P2P 네트워킹 에서 두 컴퓨터가 가능한 한 직접 서로 통신할 수 있는 방법을 찾기 위해 컴퓨터 네트워킹 에 사용되는 기술 입니다. 이것은 VoIP( Voice over Internet Protocol ), P2P 통신, 비디오 및 인스턴트 메시징 과 같은 대화형 미디어에 가장 일반적으로 사용됩니다 .
 VoIP, 피어 투 피어 및 기타 많은 응용 프로그램은 인터넷 프로토콜 패킷 헤더가 아니라 연결 데이터 스트림 내에서 통신하는 피어의 주소 정보를 필요로 합니다.
 ICE는 통신하는 피어가 다른 피어가 도달할 수 있도록 공용 IP 주소를 발견하고 전달할 수 있는 프레임워크를 제공합니다.
+
+
+<br>
 
 ## SDP
 
