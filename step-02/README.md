@@ -14,18 +14,25 @@
 
 * RTCPeerConnection은 WebRTC를 호출하여 비디오 및 오디오를 스트리밍하고 데이터를 교환하기 위한 API
 * 이 예제는 동일한 페이지에 있는 두 개의 RTCPeerConnection 객체(피어라고 함) 간의 연결을 설정한다.
+* 하나의 비디오 요소는 ```getUserMedia()```의 스트림을 표시하고 다른 하나는 RTCPeerconnection을 통해 스트리밍된 동일한 비디오를 표시한다.
+* 실제 응용 프로그램에서 하나의 비디오 요소는 로컬 스트림(내 영상)을 표시하고 다른 하나는 원격 스트림(서버에서 보내주는 영상)을 표시한다.
 * 한마디로 client 간에 비디오를 스트리밍하기 위한 방법
 
 <br>
 
-## Details
+## Peer Call Process
+* 호출의 각 끝에 RTCPeerConnection을 만들고 그 끝에 ```getUserMedia()```에서 __localStream__ 을 추가한다.
+* 네트워크 정보를 가져와서 공유한다. 잠재적인 연결 끝점은 __ICE candidate__ 로 알려저 있다.
+* local과 remote의 description을 받아와 공유한다. __SDP__ 형식으로 작성된 local media에 대한 metadata 정로를 의미한다.
 
-* 하나의 비디오 요소는 getUserMedia()의 스트림을 표시하고 다른 하나는 RTCPeerconnection을 통해 스트리밍된 동일한 비디오를 표시한다.
-* 실제 응용 프로그램에서 하나의 비디오 요소는 로컬 스트림(내 영상)을 표시하고 다른 하나는 원격 스트림(서버에서 보내주는 영상)을 표시한다.
+<br>
 
-* Peer 호출 설정
-  1. 호출의 각 끝에 RTCPeerConnection을 만들고 그 끝에 getUserMedia()에서 localStream을 추가한다.
-  2. 네트워크 정보를 가져와서 공유한다. 
+### 1. 네트워크 정보 교환
+__'finding candidates(후보 찾기)'__ 라는 표현은 __ICE framework__ 를 사용하여 네트워크 interface와 port를 찾는 과정을 의미한다.
+
+WebRTC 피어는 또한 해상도 및 코덱 기능과 같은 로컬 및 원격 오디오 및 비디오 미디어 정보를 찾고 교환해야 합니다. 미디어 구성 정보를 교환하라는 신호는 SDP라고 하는 세션 설명 프로토콜 형식을 사용하여 제안 및 답변으로 알려진 메타데이터 덩어리를 교환함으로써 진행됩니다.
+
+
 
 <br>
 
@@ -43,6 +50,7 @@ adaptor.js는
 VoIP, 피어 투 피어 및 기타 많은 응용 프로그램은 인터넷 프로토콜 패킷 헤더가 아니라 연결 데이터 스트림 내에서 통신하는 피어의 주소 정보를 필요로 합니다.
 ICE는 통신하는 피어가 다른 피어가 도달할 수 있도록 공용 IP 주소를 발견하고 전달할 수 있는 프레임워크를 제공합니다.
 
+## SDP
 
 <br>
 
