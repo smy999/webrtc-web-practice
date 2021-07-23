@@ -4,6 +4,8 @@
 
 ## How to Run?
 
+For detailed explanation and example code, refer to https://codelabs.developers.google.com/codelabs/webrtc-web/#0
+
 ### [step-01 ~ step03]
 #### Case 1. Use Web Server for Chrome
   * For more information, see https://codelabs.developers.google.com/codelabs/webrtc-web/#2
@@ -72,11 +74,10 @@ connection이 이루어지면 MediaStream과 RTCDataChannel들을 connection에 
 
 * ```setLocalDescription()```: method
   * interface와 관련이 있는 local description을 변경한다.
-  * 로컬 설명은 미디어 형식을 포함하는 연결의 로컬 엔드에 대한 속성을 명시합니다.
-
-이 메소드는 세션 설명 (session description)을 단일 매개변수로 가지며, 설명이 비동기적으로 변하게되면 fulfilled되는 Promise를 반환합니다.
-
-연결이 이미 되어있는데 setLocalDescription()가 호출된다면, 이는 재협상이 진행 중이라는 뜻입니다 (아마도 네트워크 환경이 바뀐 것에 대응하기 위함일 것입니다). 두명의 피어가 설정 값에 모두 동의해야지만 설명이 교환되기 때문에, setLocalDescription()의 호출로 전송된 설명은 즉시 사용되지 못합니다. 대신 협상이 완료되는 순간까지는 기존 연결 설정대로 작동 하게 됩니다. 그러다가 협상이 완료된 다음에서야 신규 설정이 사용됩니다.
+  * 로컬 설명은 미디어 형식을 포함하는 connection의 local end에 대한 속성을 명시한다.
+  * 해당 method는 session description을 단일 매개변수로 가지며, 설명이 비동기적으로 변하게되면 fulfilled되는 Promise를 반환한다.
+  * connection이 이미 설정된 상태에서 setLocalDescription()가 호출된다면, 이는 재협상이 진행 중이라는 뜻이다. (변화하는 네트워크 조건에 적응할 수 있음)
+  * 두 peer 모두 설정 값에 모두 동의해야지만 설명이 교환되기 때문에, setLocalDescription()의 호출로 전송된 설명은 즉시 사용되지 못한다. 대신 협상이 완료되는 순간까지는 기존 연결 설정대로 작동한다. 그러다가 협상이 완료된 다음에서야 신규 설정이 사용된다.
 
 
 
@@ -92,13 +93,14 @@ connection이 이루어지면 MediaStream과 RTCDataChannel들을 connection에 
   * open 이벤트가 발생할 때 호출될 함수를 지정하는 이벤트 핸들러
   * 데이터 채널의 기본 데이터 전송(RTCDataChannel의 메시지가 흐르는 링크)이 설정되거나 재설정될 때 전송되는 간단한 이벤트
 
-* ```onclse```: Event handler
+* ```onclose```: Event handler
   * RTCDataChannel에서 닫기 이벤트를 수신할 때 브라우저에서 호출할 함수를 지정하는 이벤트 핸들러
   * 데이터 채널이 닫혔음을 나타내는 간단한 이벤트
 
 
 
 ## Reference
-For detailed explanation and example code, refer to 
-* https://codelabs.developers.google.com/codelabs/webrtc-web/#0
+
+
+* https://developer.mozilla.org/ko/docs/Web/API/WebRTC_API
 * https://github.com/googlecodelabs/webrtc-web.
