@@ -31,6 +31,14 @@
 이를 위해 WebRTC client(peer) 간에 메시지를 전달할 수 있는 server인 signaling server를 사용한다.<br>
 실제 메시지는 문자열화된 JavaScript 객체인 일반 텍스트다.
 
+<br>
+
+### Signaling server
+
+* 해당 예제에서는 socket.io를 사용한다.
+* Socket.io는 메시지 교환을 위한 서비스를 간단하게 구출 할 수 있으며, 'room'이라는 기본 개념을 제공하여 WebRTC signaling를 학습하는데 적합하다.
+* but, 더 나은 서비스도 존재한다.(필수가 아니라는 뜻!)
+
 
 <br>
 
@@ -47,14 +55,10 @@
 * WebRTC는 client-side JavaScript API를 사용하지만 실제 사용을 위해서는 signaling(messaging) server와 STUN 및 TURN 서버도 필요하다.
 * 이 예제에서는 Socket.IO, Node.js 모듈과 메시징용 JavaScript 라이브러리를 사용하여 간단한 Node.js signaling server를 빌드한다.
 * 또한, server는 index.js에 구현되고 server에서 실행되는 client(웹 앱)는 index.html에 구현된다.
-* 이 단계에서는 페이지에 아무 것도 표시되지 않습니다. 모든 로깅은 브라우저 콘솔에서 수행됩니다.
+* 이 단계에서는 페이지에 아무 것도 표시되지 않습니다. 모든 로깅은 브라우저 콘솔에서 수행된다.
+
 
 <br>
-
-* Signaling server
-  * 해당 예제에서는 socket.io를 사용한다.
-  * Socket.io는 메시지 교환을 위한 서비스를 간단하게 구출 할 수 있으며, 'room'이라는 기본 개념을 제공하여 WebRTC signaling를 학습하는데 적합하다.
-  * but, 더 나은 서비스도 존재한다.(필수가 아니라는 뜻!)
 
 
 ## Node.js application work
