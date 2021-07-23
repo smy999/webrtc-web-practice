@@ -20,6 +20,7 @@ io.sockets.on('connection', function(socket) {
     socket.emit('log', array);
   }
 
+  // message relay 역할
   socket.on('message', function(message) {
     log('Client said: ', message);
     // for a real app, would be room-only (not broadcast)
@@ -33,6 +34,7 @@ io.sockets.on('connection', function(socket) {
     var numClients = clientsInRoom ? Object.keys(clientsInRoom.sockets).length : 0;
     log('Room ' + room + ' now has ' + numClients + ' client(s)');
 
+    // 'room' 관리
     if (numClients === 0) {
       socket.join(room);
       log('Client ID ' + socket.id + ' created room ' + room);
@@ -44,7 +46,7 @@ io.sockets.on('connection', function(socket) {
       socket.join(room);
       socket.emit('joined', room, socket.id);
       io.sockets.in(room).emit('ready');
-    } else { // max two clients
+    } else { // max two clients: 이 예제에서는 최대 2명의 peer가 방을 공유할 수 있다.
       log('max two clients');
       socket.emit('full', room);
     }
