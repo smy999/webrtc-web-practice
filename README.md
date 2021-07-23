@@ -97,7 +97,25 @@ connection이 이루어지면 MediaStream과 RTCDataChannel들을 connection에 
   * RTCDataChannel에서 닫기 이벤트를 수신할 때 브라우저에서 호출할 함수를 지정하는 이벤트 핸들러
   * 데이터 채널이 닫혔음을 나타내는 간단한 이벤트
 
+* ```send```: method
+  * data channel을 통해 remote peer로 데이터를 보낸다. 기본 전송 채널을 만드는 초기 프로세스를 제외하고 언제든지 수행할 수 있다.
+  * 연결하기 전에 전송된 데이터는 가능한 경우 버퍼링되고(또는 불가능한 경우 오류가 발생) 연결이 닫히거나 닫혀 있는 동안 전송된 경우에도 버퍼링된다.
+  * 브라우저마다 보낼 수 있는 메시지 크기에 대한 제한이 다르다. 큰 메시지를 자동으로 조각화하는 방법을 정의하는 사양이 있지만 모든 브라우저에서 이를 구현하는 것은 아니며 다양한 추가 제한이 있는 브라우저도 있다.
 
+* ```readyState```: property __read-only__
+  * data channel의 기본 데이터 연결 상태를 나타내는 문자열을 반환
+  * value: 다음은 data transport(전송)산태를 나타내는 문자열이다.
+    * __connecting__ : user agent(브라우저)는 기본 데이터 전송을 생성하는 중이다. connection 프로세스를 시작한 peer에서 RTCPeerConnection.createDataChannel()에 의해 생성된 후 새 RTCDataChannel의 상태입니다.
+    * __open__ : 기본 데이터 전송이 설정되었으며 데이터를 양방향으로 전송할 수 있다. remote peer가 채널을 생성하고 데이터 채널 이벤트에서 사이트 또는 앱에 전달할 때 WebRTC 계층에 의해 생성된 새 RTCDataChannel의 기본 상태다.
+    * __closing__ : 기본 데이터 전송을 닫는 프로세스가 시작되었다. 더 이상 보낼 새 메시지를 대기열에 넣을 수 없지만 이전에 대기열에 넣은 메시지는 closed 상태로 들어가기 전에 계속 보내거나 받을 수 있습니다.
+    * __closed__ : 기본 데이터 전송이 닫혔거나 연결 시도가 실패했다.
+  
+  
+  
+  
+<br>
+
+<br>
 
 ## Reference
 
