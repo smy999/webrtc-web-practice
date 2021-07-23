@@ -38,3 +38,10 @@
 * 앱은 임의의 방 ID를 (자동)생성하고 해당 ID를 URL에 추가한다. 새 브라우저 탭이나 창의 주소 표시줄에서 URL을 연다.
 * **Snap and Send** 버튼을 누른 다음 페이지의 맨 아래에있는 다른 탭의 수신 영역을 확인한다. 앱은 탭 간에 사진을 전송한다.
 
+
+<br>
+
+
+## Result
+
+![step-06-result](https://user-images.githubusercontent.com/33407191/126805496-f231e84f-8f2a-4869-b502-5f1cdf853d1b.png)
