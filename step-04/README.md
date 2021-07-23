@@ -44,10 +44,10 @@
 
 ## About the app
 
-WebRTC는 client-side JavaScript API를 사용하지만 실제 사용을 위해서는 signaling(messaging) server와 STUN 및 TURN 서버도 필요하다.<br>
-이 예제에서는 Socket.IO, Node.js 모듈과 메시징용 JavaScript 라이브러리를 사용하여 간단한 Node.js signaling server를 빌드한다.<br>
-또한, server는 index.js에 구현되고 server에서 실행되는 client(웹 앱)는 index.html에 구현된다.
-
+* WebRTC는 client-side JavaScript API를 사용하지만 실제 사용을 위해서는 signaling(messaging) server와 STUN 및 TURN 서버도 필요하다.
+* 이 예제에서는 Socket.IO, Node.js 모듈과 메시징용 JavaScript 라이브러리를 사용하여 간단한 Node.js signaling server를 빌드한다.
+* 또한, server는 index.js에 구현되고 server에서 실행되는 client(웹 앱)는 index.html에 구현된다.
+* 이 단계에서는 페이지에 아무 것도 표시되지 않습니다. 모든 로깅은 브라우저 콘솔에서 수행됩니다.
 
 <br>
 
@@ -57,7 +57,10 @@ WebRTC는 client-side JavaScript API를 사용하지만 실제 사용을 위해�
   * but, 더 나은 서비스도 존재한다.(필수가 아니라는 뜻!)
 
 
+## Node.js application work
 
+1. message relay 역할을 수행한다.
+2. WebRTC 화상 채팅 'room'을 관리한다.
 
 
 
